@@ -1,0 +1,16 @@
+#!/bin/bash
+
+ 
+gnome-terminal  -x bash -c "./script_websocket"
+sleep 10
+gnome-terminal -e "./script_launchGUI"
+
+# comment inn lines 10 - 16 if you wish to log the simulation to a text file
+
+# sleep 10
+#gnome-terminal -x bash -c "rostopic echo /robotPosSimple/pos/y > output_y.txt"
+#gnome-terminal -x bash -c "rostopic echo /robotPosSimple/pos/z > output_z.txt"
+#gnome-terminal -x bash -c "rostopic echo /robotPosSimple/pos/x > output_x.txt"
+#gnome-terminal -x bash -c "rostopic echo /robotPosSimple/header/stamp > output_t.txt" 
+#gnome-terminal -x bash -c "rostopic echo /robotPosSimple > output_all.txt" 
+#read -rn1

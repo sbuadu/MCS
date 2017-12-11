@@ -1,0 +1,7 @@
+
+#!/bin/bash
+
+
+roslaunch rsi_lauv_ntnu basic4-simu.launch
+
+

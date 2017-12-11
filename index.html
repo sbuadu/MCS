@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<title>LAUV Mission planner</title>
+	<meta http-equiv="content-type" content="text/html">
+
+<!-- Importing libraries -->
+	
+<script type="text/javascript" src="Public/JS/Libraries/canvasjs.min.js"></script>
+<script type="text/javascript" src="Public/JS/Libraries/leaflet.js"></script>
+<script type="text/javascript" src="Public/JS/Libraries/leaflet-src.js"></script>
+<script type="text/javascript" src="Public/JS/Libraries/roslib.js"></script>
+<script type="text/javascript" src="Public/JS/Libraries/MarkerRotate.js"></script>
+
+<!-- Style sheets -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<link rel="stylesheet" href="Public/CSS/main.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+
+</head>
+
+
+<body onload="resetContent()">
+
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header class="header">
+			<div class="header" id="headerTop" style="margin-bottom: 15px;""><b>LAUV Mission Planner</b></div>
+			<div class="header" id="headerBottom"><b>Created by <span class="smallLowerHeaderText">Stephanie Buadu</span> </b></div>
+		</header><!-- end Header-->
+
+
+		<!--Menu bar-->
+		<div class="topnav" id="menu">
+			<button class="topnav" href="#settings" style="padding: 14px 16px" onclick="openNav()">Settings</button>
+			<!--Side menu-->
+		<div class="sidenav"  id="mySidenav" >
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="#">
+				<label class="switch" style="margin-right: 4px;" onchange="resetContent()">
+					<input id="mapSwitch" type="checkbox" checked>
+					<span class="slider round"></span>
+				</label> Map </a>
+				
+				<a href="#">   <label class="switch" style="margin-right: 4px;"  onchange="resetContent()">
+					<input id="wayPointSwitch" type="checkbox" checked>
+					<span class="slider round"></span>
+				</label>Waypoints</a>
+				
+				<a href="#">   <label class="switch" style="margin-right: 4px;"  onchange="resetContent()">
+					<input id="LAUVStatusSwitch" type="checkbox" checked>
+					<span class="slider round"></span>
+				</label>LAUV staus</a>
+				<button type="button"  id="resetBtn" class="btn btn-secondary">Reset Mission</button>
+
+			</div><!--end Side menu-->
+
+		</div> <!--end Menu bar-->
+
+		
+
+			<!--Main content -->
+			<div id="content">
+
+
+				<!--Map-->				
+				<div class="gridItemMap gridItem" id="gridItemMap">       
+					<div id="map">
+					</div>					
+				</div> <!--end Map-->
+
+
+				<!--Overview-->
+				<div class="gridItem gridItemOverview" id ="gridItemOverview">
+					<div class=" overviewItem overviewHeader">Vehicle overview:	<div id="overviewHeaderData"> </div> </div>
+					
+					<div class="overviewItem overviewVisual " id="overviewVisual"> 
+						<div id="blank"></div>
+						<div id="state">State:</div><div id="stateTxt"> Ready</div>
+						<div id="currentAction">Current Action:</div><div id="currentActionTxt"></div>
+						<div id="actionProgress">Progress:</div><div id="actionProgressTxt"> <div id="progressBar"></div><div id="progressPercentage"> </div></div>
+						<div id="plain"></div>
+						<button type="button" id="abortButton" class="btn btn-danger">Abort</button>
+						<!--a id="abortButton">Abort</a></-->
+
+					</div>
+
+
+					<div class="overviewItem overviewData">
+						<div class="DataItemLeft">Vehicle Latitude [deg]</div>
+						<div class="DataItemRight roundedCorners" id= "LatMsg">N/A</div> <br>
+
+						<div class="DataItemLeft">Vehicle longitudee [deg]</div>
+						<div class="DataItemRight roundedCorners" id="LonMsg">N/A</div><br>
+
+						<div class="DataItemLeft">Vehicle velocity [m/s]</div>
+						<div class="DataItemRight roundedCorners" id="VelMsg">N/A</div>
+					</div>
+
+					<div class="overviewItem overviewGraph" id="altitudeGraph">Graph</div>
+				</div> <!--end Overview-->
+
+
+				<!--Table-->
+				<div class="gridItemTable gridItem" id="gridItemTable"> 
+					<div class= "overviewItem overviewHeader"> Mission Plan </div>
+					
+					<table id="wpTable"> 
+						<tr>
+							<th class="PointIdCol" style="background-color: #aaaaaa">Action</th>
+							<th class="LatCol" style="background-color: #aaaaaa">Lat</th> 
+							<th class="LngCol" style="background-color: #aaaaaa">Lng</th>
+							<th class="DepthCol" style="background-color: #aaaaaa">Depth</th>
+							<th class="SymbolCol" style="background-color: #aaaaaa"> Received</th>
+							<th class="SybolCol" style="background-color: #aaaaaa"> Complete</th>
+						</tr>
+					</table>
+				</div><!--end Table-->
+
+
+				<!--Footer-->
+				<footer class="footer">
+					<div class="footerText"> Designed by <br> <font color= "black"> Stephanie Buadu </font>   
+					</div> 
+					This page is made as a part of the subjet TMR4510 and is a web application made to demonstrate my project "Mission Planning for AUV". 
+					One of the goals of the project was to implement a GUI for way point generating in ROS. Behind this interface there is a communication with either a simulator or vehicle using ROS. 
+					<br>
+					<br>
+					<div class="footerImage">
+						<img src="Images/ntnu.png" style="height: 20px; ">
+					</div>
+				</footer> <!--End Footer-->
+			</div><!--end Content-->
+		</div><!--End of Wrapper-->
+
+
+		<!--Importing the javaScript file-->
+		<script src="Public/JS/main.js"></script>
+		<script src="Public/JS/map.js"></script>
+		<script src="Public/JS/communication.js"></script>
+		<script src="Public/JS/vehicleOverview.js"></script>
+		<script src="Public/JS/missionPlan.js"></script>
+		
+
+	</body>
+	</html>

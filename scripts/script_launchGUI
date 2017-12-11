@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+gnome-terminal --working-directory=/home/stephanie/Prosjekt/TMR4510/ -e "google-chrome index.html" 
